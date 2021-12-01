@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../header';
-import ItemList from '../item-list/person-details/random-planet';
+import ItemList from '../item-list';
 import PersonDetails from '../person-details';
 import RandomPlanet from '../random-planet';
 

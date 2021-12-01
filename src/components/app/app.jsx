@@ -15,7 +15,8 @@ const App = () => {
       <RandomPlanet />
 
       <div className="row mb2">
-        <div className="col-md-6">
+        <div className="col-md-6" style={{
+            marginTop: '1rem'}}>
           <ItemList />
         </div>
         <div className="col-md-6">

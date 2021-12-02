@@ -1,30 +1,63 @@
-import React from 'react';
-import Header from '../header';
-import ItemList from '../item-list';
-import PersonDetails from '../person-details';
-import RandomPlanet from '../random-planet';
+import React, { Component } from "react";
+import Header from "../header";
+import ItemList from "../item-list";
+import PersonDetails from "../person-details";
+import RandomPlanet from "../random-planet";
+import ErrorIndicator from "../error-indicator";
+import "./app.css";
 
+export default class App extends Component {
+  state = {
+    showRandomPlanet: true,
+    selectedPerson: 1,
+    hasError: false,
+  };
 
+  toggleRandomPlanet = () => {
+    this.setState((state) => {
+      return {
+        showRandomPlanet: !state.showRandomPlanet,
+      };
+    });
+  };
 
-import './app.css';
+  onPersonSelected = (id) => {
+    this.setState({
+      selectedPerson: id,
+    });
+  };
 
-const App = () => {
-  return (
-    <div>
-      <Header />
-      <RandomPlanet />
+  componentDidCatch() {
+    this.setState({ hasError: true });
+  }
 
-      <div className="row mb2">
-        <div className="col-md-6" style={{
-            marginTop: '1rem'}}>
-          <ItemList />
-        </div>
-        <div className="col-md-6">
-          <PersonDetails />
+  render() {
+    const planet = this.state.showRandomPlanet ? <RandomPlanet /> : null;
+
+    if (this.state.hasError) {
+      return <ErrorIndicator />;
+    }
+
+    return (
+      <div className="stardb-app">
+        <Header />
+        {planet}
+
+        <button
+          className="toggle-planet btn btn-success btn-lg"
+          onClick={this.toggleRandomPlanet}
+        >
+          Toggle Random Planet
+        </button>
+        <div className="row mb2">
+          <div className="col-md-6">
+            <ItemList onItemSelected={this.onPersonSelected} />
+          </div>
+          <div className="col-md-6">
+            <PersonDetails personId={this.state.selectedPerson} />
+          </div>
         </div>
       </div>
-    </div>
-  );
-};
-
-export default App;
+    );
+  }
+}

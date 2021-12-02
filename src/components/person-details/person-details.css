@@ -1,6 +1,5 @@
 .person-details {
   display: flex;
-  margin-top: 1rem;
   flex-direction: row;
   padding: 1rem;
 }
@@ -13,8 +12,11 @@
 
 .person-details .list-group-item {
   padding: .25rem;
-}
+  display: flex;
+  justify-content: space-between;
+  }
 
 .person-details .list-group-item .term{
   margin-right: .5rem;
+  
 }
